@@ -105,9 +105,8 @@ public class RankDAO {
 		// 찾는 데이터 값을 받아오기 위해 사용, 맞는 데이터 값이 없으면 null반환
 		
 		// java에서 찾으려는 아이디값을 검색해주는 쿼리문
-	      sql = "select * from userrank where id = '" + id + "';";
+	      sql = "select * from userrank where id = '" + id + "'";
 		// ▲ RankMain_GUI에서 확인하기 위해 받아온 아이디 값을 DB에서 찾아온다
-		
 		try {
 			
 			rs = stmt.executeQuery(sql); // 쿼리에서 찾아본다
