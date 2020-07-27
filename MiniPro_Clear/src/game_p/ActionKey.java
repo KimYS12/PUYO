@@ -13,9 +13,9 @@ public class ActionKey implements KeyListener {
 	int meY;
 
 	int youX;
-	int youY; 
+	int youY;
 
-	public ActionKey(MePuyoPanel panel) { // 생성시 메인 프레임을 가져옴
+	public ActionKey(MePuyoPanel panel) { // 생성시 메인 패널
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 	}
@@ -204,6 +204,12 @@ public class ActionKey implements KeyListener {
 		} else { // me 와 you가 x툭으로 일직선 즉 가로 방향 일때
 			// y가 같고 x축만 고려 해줄 경우
 
+			// me의 밑에 무엇인가 존재 하면 회전 못시키게 만들면 되겟네...
+			for (MyLabel puyo : panel.puyoLbs) {
+				if (meX == puyo.getX() && meY + (Puyo.PUYOSIZE * 2) == puyo.getY())
+					return;
+			}
+
 			if (youX < meX) { // you가 me 의 왼쪽에 존재 할때
 				// you 를 me 의 위로 이동
 				// you의 x가 me 와 같고
@@ -276,7 +282,7 @@ public class ActionKey implements KeyListener {
 		// TODO Auto-generated method stub
 
 		int key = e.getKeyCode();
-		System.out.println(key == KeyEvent.VK_DOWN);
+		// System.out.println(key == KeyEvent.VK_DOWN);
 
 	}
 

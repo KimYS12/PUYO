@@ -26,7 +26,7 @@ public class Main_Server {
    ArrayList<String> userList;
    ArrayList<String> info;   
    ArrayList<ObjectOutputStream> datalist;
-   
+   GameRoomDTO dto = new GameRoomDTO();
    
    String removeid ="";
    String userid ="";   
@@ -36,8 +36,8 @@ public class Main_Server {
    void dbClear() {
       
       String nn = null;
-      GameRoomDTO dto = new GameRoomDTO();
-      
+      //GameRoomDTO dto = new GameRoomDTO();
+      dto = new GameRoomDTO();
       for (int i = 1; i < 19 ; i++) {
          
          dto.setNo(i);
@@ -78,14 +78,9 @@ public class Main_Server {
          
       } catch (Exception e) {
          System.out.println("접속실패");
-         
-         
       }
       
    }
-
-   
-   
    public class Tcp_Server extends Thread  {
       ObjectOutputStream oos;      
       ObjectInputStream ois;      
@@ -114,47 +109,45 @@ public class Main_Server {
             System.out.println(userid+":"+"접속합니다");
             userdata.put(userid,oos);
             
-            
-           
-     
-          
-            
-            
-            
-            
-            
+      
             while(ois!=null)
             {    
                
-               DDongData  dataois = (DDongData)ois.readObject();
+              DDongData  dataois = (DDongData)ois.readObject();
                
               if(dataois.type.equals("채팅") && dataois.dst ==null ){
                  
                  sendtoChat(dataois); 
               
                }else if(dataois.type.equals("로비") || dataois.type.equals("게임")) {
-                  
+                 System.out.println(dataois.type);
+                  System.out.println(dataois.data+"로비1 로비데이터 \n\n");
                   sendAll(dataois);
               
                }else if(dataois.type.equals("게임중") && dataois.dst !=null ) {
-               
+                  System.out.println(dataois.src+" - src  ");
+                  System.out.println(dataois.data+"게임중2 로비데이터 \n\n");
                   sendSelect(dataois);
                
+               }else if(dataois.type.equals("로비진입")) {
+                  System.out.println(dataois.type);
+                  System.out.println(dataois.src+" - src  ");
+                  System.out.println(dataois.dst+" - dst, "+dataois.data+" - 로비2  \n\n");
+                  sendAll(dataois);
                }
             
             }       
-              
-            
-            
             
             }catch (Exception e) {
                e.printStackTrace();
-                System.out.println("유저가 서버를 닫았습니다");
+               System.out.println();
+               System.out.println(userid+"  유저가 서버를 닫았습니다");
             }finally{
-               
-                  System.out.println("유저나가요");
-                  userdata.remove(userid, oos);
-               }
+                 System.out.println("유저나가요");
+                 System.out.println(userid);
+                 userdata.remove(userid, oos);
+                 new LobbyDAO().delete(userid);
+           }
           
            }
 
@@ -183,6 +176,7 @@ public class Main_Server {
                userdata.get(dataois.dst).writeObject(dataois);// 여기 에러
                userdata.get(dataois.dst).flush();
                userdata.get(dataois.dst).reset();
+         
                //System.out.println("유저한테 데이터가 잘보내져요");
                
             }catch (IOException e) {}   

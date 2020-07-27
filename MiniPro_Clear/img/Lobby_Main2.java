@@ -75,8 +75,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
       
       JLabel lobbyLabel = new JLabel("로비");
       lobbyLabel.setBounds(0, 0, 210, 50);
-      lobbyLabel.setFont(new Font("나눔고딕", Font.BOLD, 20));
-      lobbyLabel.setHorizontalAlignment(JLabel.CENTER);
+      lobbyLabel.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
       userListA.add(lobbyLabel);
 
 
@@ -93,7 +92,7 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
       }
 
       lobbyT = new JTable(lobbyL,index);
-      lobbyT.setFont(new Font("나눔고딕", Font.BOLD, 13));
+      lobbyT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
       sp2 = new JScrollPane(lobbyT);
       sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
       sp2.setBounds(0, 50, 210, 350);
@@ -102,13 +101,65 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
    }
 
 
+
+   //
+   //   class UserList_Main extends JPanel{
+   //
+   //      String id;
+   //      JTable lobbyT;
+   //      JScrollPane sp2;
+   //
+   //
+   //      public UserList_Main() {
+   //
+   //         setBounds(0,0, 210,600);
+   //         setLayout(null);
+   //
+   //         JLabel lobbyList = new JLabel("로비");
+   //         lobbyList.setBounds(0, 0, 210, 50);
+   //         lobbyList.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
+   //         add(lobbyList);
+   //      }
+   //
+   //      void init(){
+   //
+   //         if(sp2!=null) {
+   //
+   //            lobbyT.removeAll();
+   //            sp2.removeAll();
+   //         }
+   //
+   //
+   //         ArrayList<LobbyDTO> arr = new LobbyDAO().list();
+   //
+   //
+   //         Object [] index ={"ID"};
+   //         Object [][] lobbyL = new Object[arr.size()][1]; 
+   //
+   //
+   //         for (int i =0; i<arr.size();i++) {
+   //
+   //            lobbyL[i][0] = arr.get(i).getId();
+   //         }
+   //
+   //         lobbyT = new JTable(lobbyL,index);
+   //         lobbyT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
+   //         sp2 = new JScrollPane(lobbyT);
+   //         sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+   //         sp2.setBounds(0, 50, 210, 350);
+   //         add(sp2);
+   //
+   //      }
+   //   }
+
+
+
    public Lobby_Main(ClientNetWork cn) {
 
       this.cn = cn;
       cn.ddInter = this;
 
-      setSize(900, 650);
-      setLocationRelativeTo(null);
+      setBounds(300, 50, 900, 650);
       setTitle("젤리젤리"); // 타이틀
       setIconImage(new ImageIcon("./img/logo.png").getImage());
       contentPane = new JPanel();
@@ -117,12 +168,20 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
 
 
       // == 화면 윗부분 =====================
+
+      // -- 접속유저 리스트 -------
+//      userList = new UserList_Main();
+//      userList.setBounds(662, 20, 210, 400);
+      //      userList.setBackground(Color.CYAN);
+      // -- 접속유저 리스트 끝 -------
+
       // -- 방 리스트 -------
       roomBtn();
       //       -- 방 리스트 끝 -------
 
       // -- 접속유저 리스트 -------
       UserList_Main();
+//      contentPane.add(userList);
       // -- 접속유저 리스트 끝 -------
 
 
@@ -165,10 +224,6 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
             new LobbyDAO().delete(cn.id);
 
             System.exit(0);
-            
-            dData = new DDongData(); 
-            dData.type = "로비";
-            cn.send(dData);
          }
       });
       // -- 나가기 버튼 -------
@@ -460,11 +515,9 @@ public class Lobby_Main extends JFrame implements DDongInter, WindowListener{
    public void windowClosing(WindowEvent e) {
       // TODO Auto-generated method stub
 
+
       dispose();
       new LobbyDAO().delete(cn.id);
-      dData = new DDongData(); 
-      dData.type = "로비";
-      cn.send(dData);
    }
 
 

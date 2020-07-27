@@ -31,15 +31,17 @@ public class PuyoFrame extends JFrame implements DDongInter {
 	JLabel meLb, youLb;
 
 	String meId, enemyId;
+	Integer roomNum;
 
 	DDongData data;
+	MeGameInfo enemyData;
 
 	ExecutorService threadPool;
 
-	public PuyoFrame(String meId, String enemyId) {
+	public PuyoFrame(Integer roomNum, String meId, String enemyId) {
 		// TODO Auto-generated constructor stub
 
-		init(meId, enemyId);
+		init(roomNum, meId, enemyId);
 
 		setSize(width, height); // 프레임 사이즈
 		setLocationRelativeTo(null); // 프레임 시작시 모니터 중앙에 출력
@@ -76,7 +78,8 @@ public class PuyoFrame extends JFrame implements DDongInter {
 
 	}
 
-	void init(String meId, String enemyId) {
+	void init(Integer roomNum, String meId, String enemyId) {
+		this.roomNum = roomNum;
 		this.meId = meId;
 		this.enemyId = enemyId;
 		this.threadPool = Executors.newCachedThreadPool();
@@ -98,7 +101,7 @@ public class PuyoFrame extends JFrame implements DDongInter {
 		if (dd.type.equals("게임중")) {
 			if ((MeGameInfo) dd.data != null) {
 				you.paint((MeGameInfo) dd.data);
-
+				this.enemyData = (MeGameInfo) dd.data;
 				if (((MeGameInfo) dd.data).itemChk)
 					me.itemChk = true;
 
@@ -121,8 +124,14 @@ public class PuyoFrame extends JFrame implements DDongInter {
 
 					try {
 
+						if (me.meInfo.endGame)
+							return;
+
+						System.out.println("asdasdasdasd");
+
 						Thread.sleep(frame);
 
+						System.out.println(PuyoFrame.this.cn);
 						cn.send(data);
 						me.meInfo.itemChk = false;
 
@@ -136,18 +145,6 @@ public class PuyoFrame extends JFrame implements DDongInter {
 			}
 		};
 		this.threadPool.submit(thread);
-	}
-
-	class ExitBtn implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
-			PuyoFrame.this.dispose();
-
-		}
-
 	}
 
 }

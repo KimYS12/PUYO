@@ -21,8 +21,6 @@ public class YouPuyoPanel extends JPanel {
 	public YouPuyoPanel() {
 		// TODO Auto-generated constructor stub
 
-		System.out.println("--- you  持失");
-
 		this.icon = new ImageIcon("./img/background.png");
 
 		setLayout(null);
@@ -33,8 +31,6 @@ public class YouPuyoPanel extends JPanel {
 		add(info);
 
 		this.threadPool = Executors.newCachedThreadPool();
-
-		System.out.println("--- you   持失 魁");
 
 	}
 

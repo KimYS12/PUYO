@@ -193,7 +193,7 @@ public class WaitRoom extends JFrame implements DDongInter {
 
 			this.dispose();
 
-			PuyoFrame game = new PuyoFrame(id, enenmy);
+			PuyoFrame game = new PuyoFrame(roomNum, id, enenmy);
 			game.cn = cn;
 			cn.ddInter = game;
 
@@ -262,11 +262,6 @@ public class WaitRoom extends JFrame implements DDongInter {
 			cn.send(data);
 
 		}
-
-	}
-
-	public static void main(String[] args) {
-		new WaitRoom("asdasd", 8);
 
 	}
 
