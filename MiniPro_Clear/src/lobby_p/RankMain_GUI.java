@@ -17,6 +17,8 @@ class User implements Comparable<User>{
 
 	String id;
 	Integer score, rank;
+	
+//	Lobby_Main lobby;
 
 
 	public User(String id, Integer score) {
@@ -96,6 +98,7 @@ public class RankMain_GUI extends JPanel {
 		
 		Object [] index = {"RANK", "ID", "SCORE"}; // 랭킹테이블 컬럼
 		Object [][] userL = new Object[userInfo.size()][3]; // 유저의 랭킹, 점수를 랭킹순으로 담을 배열
+		Object [][] myRankL = new Object[1][1];
 
 		for (User chk : userInfo) { // 순위를 메기고 순위 순서대로 출력 후 배열에 담아준다
 
@@ -105,24 +108,29 @@ public class RankMain_GUI extends JPanel {
 			userL[cnt][1] = chk.id;
 			userL[cnt][2] = chk.score;
 			
+			
+//			if() {
+//				
+//				
+//			}
+				
 			cnt++;
 		}
 
 		
 		// 얘는 나중에 맨위에 내순위보이게 할때 쓰고싶어서 빼놨어 아직 미완
-//		Object [][] myRankL = {("RANK", "ID", "SCORE")};
-//		
+		
 //		JLabel myRank = new JLabel("내순위");
 //		myRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
 //		myRank.setBounds(30, 30, 110, 50);
-//		getContentPane().add(myRank);
+//		add(myRank);
 //		
 //		JTable myRankT = new JTable(myRankL, index);
 //		myRankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 15));
-//		JScrollPane sp1 = new JScrollPane((Component) null);
+//		JScrollPane sp1 = new JScrollPane();
 //		sp1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		sp1.setBounds(30, 90, 450, 50);
-//		getContentPane().add(sp1);
+//		add(sp1);
 		
 		JLabel totRank = new JLabel("전체순위");
 		totRank.setBounds(30, 100, 110, 50);
@@ -131,10 +139,24 @@ public class RankMain_GUI extends JPanel {
 		
 		JTable rankT = new JTable(userL, index);
 		rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
+		rankT.setEnabled(false);
 		JScrollPane sp2 = new JScrollPane(rankT);
 		sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		sp2.setBounds(30, 160, 450, 450);
 		add(sp2);
+
+//		JLabel totRank = new JLabel("전체순위");
+//		totRank.setBounds(30, 100, 110, 50);
+//		totRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
+//		add(totRank);
+//		
+//		JTable rankT = new JTable(userL, index);
+//		rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
+//		rankT.setEnabled(false);
+//		JScrollPane sp2 = new JScrollPane(rankT);
+//		sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		sp2.setBounds(30, 160, 450, 450);
+//		add(sp2);
 		
 	}
 

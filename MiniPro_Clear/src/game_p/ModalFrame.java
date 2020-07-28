@@ -2,6 +2,8 @@ package game_p;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,7 +19,7 @@ import jdbc_p.GameRoomDTO;
 import jdbc_p.LobbyDAO;
 import lobby_p.Lobby_Main;
 
-public class ModalFrame extends JFrame implements DDongInter {
+public class ModalFrame extends JFrame implements DDongInter, WindowListener {
 
 	ClientNetWork cn;
 
@@ -51,7 +53,10 @@ public class ModalFrame extends JFrame implements DDongInter {
 		add(textLb2);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 닫기 옵션
+		// setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // 프레임 닫기 비활성화
 		setVisible(true); // 프레임을 보여줌
+
+		addWindowListener(this); // 윈도우창을 x로 닫으면 닫히게 한다
 
 		endTimer();
 
@@ -95,25 +100,13 @@ public class ModalFrame extends JFrame implements DDongInter {
 	void goLobby() {
 
 		ModalFrame.this.dispose();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 이게 먹히나 ?
 		ModalFrame.this.frame.dispose();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		new LobbyDAO().insert(frame.meId);
 
-		if (frame.me.lobbyChk) { // 둘다 게임이 종료 되어 나갔다면 방 폭파
-			GameRoomDTO users = new GameRoomDAO().detailroom(frame.roomNum);
-
-			String user1 = users.getUser1();
-			String user2 = users.getUser2();
-
-			String[] userArr = { user1, user2 };
-
-			for (int i = 0; i < userArr.length; i++) {
-
-				new GameRoomDAO().modifyUser5(new String[] { "user1", "user2" }[i], userArr[i]);
-
-			}
-
-		}
+		frame.updateRoomDb();
 
 		new Lobby_Main(cn);
 
@@ -126,6 +119,48 @@ public class ModalFrame extends JFrame implements DDongInter {
 
 	@Override
 	public void reciver(DDongData dd) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) { // 강제 종료시.....
+		// TODO Auto-generated method stub
+		frame.updateRoomDb();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 
 	}

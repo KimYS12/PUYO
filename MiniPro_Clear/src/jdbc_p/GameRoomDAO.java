@@ -232,6 +232,26 @@ public class GameRoomDAO {
 		return res;
 
 	}
+	
+	public int modifyUser6(String col, Integer roomNum) {
+
+	      int res = 0;
+
+	      sql = "update gameroom set " + col + " = 'temp' where no = " + roomNum + "";
+	      System.out.println(sql);
+
+	      try {
+
+	         res = stmt.executeUpdate(sql); // 수정한 내용 업데이트
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally { // 위에서와 마찬가지로 DB사용 후 DB를 닫아준다
+	         close(); // DB를 닫기 전 확인을 위한 메소드
+	      }
+
+	      return res;
+	}
 
 	// --------------------------------------------------------
 	// == public int delete : java에서 삭제한 데이터 DB에서 삭제 =======

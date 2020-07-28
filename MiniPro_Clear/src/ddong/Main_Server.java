@@ -3,20 +3,16 @@ package ddong;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
 import jdbc_p.GameRoomDAO;
 import jdbc_p.GameRoomDTO;
-import jdbc_p.GameUserDAO;
-import jdbc_p.GameUserDTO;
 import jdbc_p.LobbyDAO;
-import jdbc_p.LobbyDTO;
 
 
 
@@ -105,10 +101,9 @@ public class Main_Server {
             //로그인을 성공하면 map을 통해 유저 정보 , 데이터를 받는다.
             DDongData data = (DDongData)ois.readObject();
             userid = (String)data.src;
-         
             System.out.println(userid+":"+"접속합니다");
             userdata.put(userid,oos);
-            
+            System.out.println(userdata.size());
       
             while(ois!=null)
             {    
@@ -116,40 +111,30 @@ public class Main_Server {
               DDongData  dataois = (DDongData)ois.readObject();
                
               if(dataois.type.equals("채팅") && dataois.dst ==null ){
-                 
+              
                  sendtoChat(dataois); 
-              
-               }else if(dataois.type.equals("로비") || dataois.type.equals("게임")) {
-                 System.out.println(dataois.type);
-                  System.out.println(dataois.data+"로비1 로비데이터 \n\n");
-                  sendAll(dataois);
-              
-               }else if(dataois.type.equals("게임중") && dataois.dst !=null ) {
-                  System.out.println(dataois.src+" - src  ");
-                  System.out.println(dataois.data+"게임중2 로비데이터 \n\n");
+            
+              }else if(dataois.type.equals("로비") || dataois.type.equals("게임")) {
+                
+                 sendAll(dataois);
+             
+              }else if(dataois.type.equals("게임중") && dataois.dst !=null ) {
                   sendSelect(dataois);
                
-               }else if(dataois.type.equals("로비진입")) {
-                  System.out.println(dataois.type);
-                  System.out.println(dataois.src+" - src  ");
-                  System.out.println(dataois.dst+" - dst, "+dataois.data+" - 로비2  \n\n");
-                  sendAll(dataois);
-               }
+              }
             
             }       
             
             }catch (Exception e) {
-               e.printStackTrace();
-               System.out.println();
                System.out.println(userid+"  유저가 서버를 닫았습니다");
             }finally{
-                 System.out.println("유저나가요");
-                 System.out.println(userid);
-                 userdata.remove(userid, oos);
-                 new LobbyDAO().delete(userid);
-           }
-          
-           }
+               System.out.println("유저나가요");
+               System.out.println(userid);
+               System.out.println("finally전 유저데이터 : "+userdata.size());
+               userdata.remove(userid, oos);
+               System.out.println("finall후 유저데이터 : "+userdata.size());
+            }
+      }
 
       //채팅 
       public void sendtoChat(DDongData dataois)   
@@ -199,46 +184,7 @@ public class Main_Server {
             e.printStackTrace();
          }
       }
-      
-      
-     public void sendLogin(DDongData dataois){
-         try {
-            for (ObjectOutputStream ost : userdata.values())
-             {
-            
-                try {
-                  ost.writeObject(dataois);
-                  ost.flush();
-                  ost.reset();
-               } catch (IOException e) {
-                  e.printStackTrace();
-               }
-                
-            }
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-      }
-     
-     
-     
-     public void goLogin(Object data) {
-        
-      for (ObjectOutputStream ost : userdata.values())
-         {
-            try {
-              ost.writeObject(data);
-              ost.flush();
-              ost.reset();
-           } catch (Exception e) {
-              e.printStackTrace();
-           }
-         }
-     }
-     
-     
-     
-     
+  
      
      
    }

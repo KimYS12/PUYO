@@ -70,112 +70,112 @@ public class JoinTest extends JFrame {
       setTitle("회원가입");
       setIconImage(new ImageIcon("./img/logo.png").getImage());
       getContentPane().setLayout(null);
-      setSize(455, 615);            
+      setSize(600, 700);            
       setLocationRelativeTo(null);   //gui 화면 정 중앙으로 맞춰줌
       getContentPane().setLayout(null);
       setResizable(false);   //gui 사이즈 수정 불가
  
 
       JLabel lbJoinId = new JLabel("아이디");
-      lbJoinId.setBounds(17, 30, 74, 27);
+      lbJoinId.setBounds(98, 95, 74, 27);
       getContentPane().add(lbJoinId);
 
       
       JLabel lbJoinPw = new JLabel("비밀번호");
-      lbJoinPw.setBounds(17, 80, 74, 27);
+      lbJoinPw.setBounds(98, 145, 74, 27);
       getContentPane().add(lbJoinPw);
 
       JLabel lbJoinPwC = new JLabel("비밀번호 확인");
-      lbJoinPwC.setBounds(17, 130, 122, 27);
+      lbJoinPwC.setBounds(98, 195, 122, 27);
       getContentPane().add(lbJoinPwC);
       
       JLabel lbName = new JLabel("이름");
-      lbName.setBounds(17, 180, 74, 27);
+      lbName.setBounds(98, 245, 74, 27);
       getContentPane().add(lbName);
 
 
       JLabel lbJoinBirth = new JLabel("생년월일");
-      lbJoinBirth.setBounds(17, 230, 74, 27);
+      lbJoinBirth.setBounds(98, 295, 74, 27);
       getContentPane().add(lbJoinBirth);
 
       JLabel lbJoinEmail = new JLabel("이메일");
-      lbJoinEmail.setBounds(17, 280, 74, 27);
+      lbJoinEmail.setBounds(98, 345, 74, 27);
       getContentPane().add(lbJoinEmail);
 
       JoinIdText = new JTextField();
 
-      JoinIdText.setBounds(142, 30, 187, 27);
+      JoinIdText.setBounds(223, 95, 187, 27);
       JoinIdText.setColumns(10);
       getContentPane().add(JoinIdText);
 
       passwordField = new JPasswordField();
-      passwordField.setBounds(142, 80, 187, 27);
+      passwordField.setBounds(223, 145, 187, 27);
       getContentPane().add(passwordField);
 
       passwordField_1 = new JPasswordField();
-      passwordField_1.setBounds(142, 130, 187, 27);
+      passwordField_1.setBounds(223, 195, 187, 27);
       getContentPane().add(passwordField_1);
 
       JoinNameText = new JTextField();
       JoinNameText.setColumns(10);
-      JoinNameText.setBounds(142, 180, 187, 27);
+      JoinNameText.setBounds(223, 245, 187, 27);
       getContentPane().add(JoinNameText);
 
       JoinBirthText = new JTextField();
       JoinBirthText.setColumns(10);
-      JoinBirthText.setBounds(142, 230, 187, 27);
+      JoinBirthText.setBounds(223, 295, 187, 27);
       getContentPane().add(JoinBirthText);
 
       JoinEmailText = new JTextField();
       JoinEmailText.setColumns(10);
-      JoinEmailText.setBounds(142, 280, 187, 27);
+      JoinEmailText.setBounds(223, 345, 187, 27);
       getContentPane().add(JoinEmailText);
 
       btnCancelMake = new JButton("종료");
       btnCancelMake.setBackground(Color.LIGHT_GRAY);
-      btnCancelMake.setBounds(236, 330, 129, 29);
+      btnCancelMake.setBounds(313, 435, 129, 29);
       getContentPane().add(btnCancelMake);
       btnCancelMake.addActionListener(butAct);
 
       btnMakeMember = new JButton("회원가입");
       btnMakeMember.setBackground(Color.LIGHT_GRAY);
-      btnMakeMember.setBounds(89, 330, 129, 29);
+      btnMakeMember.setBounds(142, 435, 129, 29);
       getContentPane().add(btnMakeMember);
       btnMakeMember.addActionListener(butAct);
 
       btnIdChk = new JButton("중복확인");
       btnIdChk.setBackground(Color.LIGHT_GRAY);
-      btnIdChk.setBounds(346, 30, 86, 27);
+      btnIdChk.setBounds(424, 95, 108, 27);
       getContentPane().add(btnIdChk);
       
       JLabel lblNewLabel = new JLabel("\uC601\uBB38 \uB610\uB294 \uC22B\uC790\uB85C 5\uAE00\uC790 \uC774\uC0C1");
       lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 11));
       lblNewLabel.setForeground(Color.BLACK);
-      lblNewLabel.setBounds(142, 55, 187, 21);
+      lblNewLabel.setBounds(223, 120, 187, 21);
       getContentPane().add(lblNewLabel);
       
       JLabel lblNewLabel_1 = new JLabel("\uC601\uBB38,\uC22B\uC790,\uD2B9\uC218\uBB38\uC790 \uC870\uD569 8\uAE00\uC790 \uC774\uC0C1");
       lblNewLabel_1.setFont(new Font("굴림", Font.PLAIN, 11));
       lblNewLabel_1.setForeground(Color.BLACK);
-      lblNewLabel_1.setBounds(142, 105, 187, 21);
+      lblNewLabel_1.setBounds(223, 170, 187, 21);
       getContentPane().add(lblNewLabel_1);
       
       JLabel lblNewLabel_3 = new JLabel("2~4\uAE00\uC790");
       lblNewLabel_3.setFont(new Font("굴림", Font.PLAIN, 11));
       lblNewLabel_3.setForeground(Color.BLACK);
-      lblNewLabel_3.setBounds(142, 205, 187, 21);
+      lblNewLabel_3.setBounds(223, 270, 187, 21);
       getContentPane().add(lblNewLabel_3);
       
       JLabel lblNewLabel_4 = new JLabel("ex) 901211");
       lblNewLabel_4.setFont(new Font("굴림", Font.PLAIN, 11));
       lblNewLabel_4.setForeground(Color.BLACK);
-      lblNewLabel_4.setBounds(142, 255, 187, 21);
+      lblNewLabel_4.setBounds(223, 320, 187, 21);
       getContentPane().add(lblNewLabel_4);
       
       JLabel lblNewLabel_5 = new JLabel("ex) \uC544\uC774\uB514@\uB3C4\uBA54\uC778 \uC8FC\uC18C");
       lblNewLabel_5.setFont(new Font("굴림", Font.PLAIN, 11));
       lblNewLabel_5.setForeground(Color.BLACK);
-      lblNewLabel_5.setBounds(142, 305, 187, 21);
+      lblNewLabel_5.setBounds(223, 370, 187, 21);
       getContentPane().add(lblNewLabel_5);
       btnIdChk.addActionListener(butAct);
       

@@ -36,45 +36,45 @@ public class FinddingId extends JFrame{
 		getContentPane().setLayout(null);
 		setTitle("계정 찾기");
 		setIconImage(new ImageIcon("./img/logo.png").getImage());
-		setSize(455, 615);
+		setSize(600, 700);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		setResizable(false);
 
 		JLabel lbJoinId = new JLabel("이름");
-		lbJoinId.setBounds(47, 75, 74, 27);
+		lbJoinId.setBounds(138, 206, 74, 27);
 		getContentPane().add(lbJoinId);
 
 		JLabel lbJoinId_1_1 = new JLabel("생년월일");
-		lbJoinId_1_1.setBounds(47, 120, 74, 27);
+		lbJoinId_1_1.setBounds(138, 251, 74, 27);
 		getContentPane().add(lbJoinId_1_1);
 
 		JLabel lbJoinId_1_1_1 = new JLabel("이메일");
-		lbJoinId_1_1_1.setBounds(47, 160, 74, 27);
+		lbJoinId_1_1_1.setBounds(138, 291, 74, 27);
 		getContentPane().add(lbJoinId_1_1_1);
 
 		nameText = new JTextField();
 		nameText.setColumns(10);
-		nameText.setBounds(172, 75, 209, 27);
+		nameText.setBounds(245, 206, 209, 27);
 		getContentPane().add(nameText);
 
 		birthText = new JTextField();
 		birthText.setColumns(10);
-		birthText.setBounds(172, 120, 209, 27);
+		birthText.setBounds(245, 251, 209, 27);
 		getContentPane().add(birthText);
 
 		emailText = new JTextField();
 		emailText.setColumns(10);
-		emailText.setBounds(172, 160, 209, 27);
+		emailText.setBounds(245, 291, 209, 27);
 		getContentPane().add(emailText);
 
 		closeBtn = new JButton("종료");
-		closeBtn.setBounds(227, 262, 129, 29);
+		closeBtn.setBounds(305, 416, 129, 29);
 		getContentPane().add(closeBtn);
 		closeBtn.addActionListener(actBtn);
 
 		findBtn = new JButton("찾기");
-		findBtn.setBounds(81, 262, 129, 29);
+		findBtn.setBounds(159, 416, 129, 29);
 		getContentPane().add(findBtn);
 		findBtn.addActionListener(actBtn);
 

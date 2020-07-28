@@ -8,10 +8,12 @@ import javax.swing.JPanel;
 public class WaitRoomPanel extends JPanel {
 
 	ImageIcon background;
+	String src;
 
-	public WaitRoomPanel() {
+	public WaitRoomPanel(String src) {
 		// TODO Auto-generated constructor stub
-		this.background = new ImageIcon("./img/background.png");
+		this.src = src;
+		this.background = new ImageIcon(src);
 	}
 
 	@Override
