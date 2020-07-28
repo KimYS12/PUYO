@@ -22,24 +22,22 @@ public class Main_Server {
    ArrayList<String> userList;
    ArrayList<String> info;   
    ArrayList<ObjectOutputStream> datalist;
-   GameRoomDTO dto = new GameRoomDTO();
    
    String removeid ="";
-   String userid ="";   
+      
    HashMap<String, ObjectOutputStream> userdata;
    
    
    void dbClear() {
       
       String nn = null;
-      //GameRoomDTO dto = new GameRoomDTO();
+      GameRoomDTO dto = new GameRoomDTO();
       dto = new GameRoomDTO();
       for (int i = 1; i < 19 ; i++) {
          
          dto.setNo(i);
          dto.setUser1(nn);
          dto.setUser2(nn);
-         
          new GameRoomDAO().reset(dto);
       }
       
@@ -51,7 +49,7 @@ public class Main_Server {
    
    public Main_Server() {
       try {
-         dbClear() ;
+         dbClear();
          ServerSocket server = new ServerSocket(7777);
          System.out.println(" ____________________________________");
          System.out.println("|                                    |");
@@ -79,16 +77,16 @@ public class Main_Server {
    }
    public class Tcp_Server extends Thread  {
       ObjectOutputStream oos;      
-      ObjectInputStream ois;      
+      ObjectInputStream ois;    
+      String userid ="";
       public Tcp_Server(Socket soc) {
          try {
             
             oos = new ObjectOutputStream(soc.getOutputStream());
             ois = new ObjectInputStream(soc.getInputStream());
          
-            
          } catch (Exception e) {
-            // TODO Auto-generated catch block
+           System.out.println("리시버를 못받았습니다.");
             e.printStackTrace();
          }
       }
@@ -97,42 +95,43 @@ public class Main_Server {
       @Override
       public void run() {
             try {
-               
             //로그인을 성공하면 map을 통해 유저 정보 , 데이터를 받는다.
+
             DDongData data = (DDongData)ois.readObject();
             userid = (String)data.src;
             System.out.println(userid+":"+"접속합니다");
             userdata.put(userid,oos);
-            System.out.println(userdata.size());
+           // System.out.println(userdata.keySet());
       
+               
             while(ois!=null)
             {    
                
-              DDongData  dataois = (DDongData)ois.readObject();
-               
-              if(dataois.type.equals("채팅") && dataois.dst ==null ){
+              DDongData dataois = (DDongData)ois.readObject();
+              System.out.println("["+dataois.type+"]타입스");
               
+              
+              if(dataois.type.equals("채팅") && dataois.dst ==null){
                  sendtoChat(dataois); 
-            
-              }else if(dataois.type.equals("로비") || dataois.type.equals("게임")) {
-                
+              }else if(dataois.type.equals("로비") || dataois.type.equals("게임") ){
                  sendAll(dataois);
-             
-              }else if(dataois.type.equals("게임중") && dataois.dst !=null ) {
+              }else if(dataois.type.equals("게임중") ) {
+            	  //System.out.println("["+dataois.type+"]");
+            	  System.out.println(dataois.src+":"+"진입했나요?");
+            	  System.out.println("["+userid+"]"+"["+dataois.dst+"]");
                   sendSelect(dataois);
-               
               }
             
             }       
             
             }catch (Exception e) {
-               System.out.println(userid+"  유저가 서버를 닫았습니다");
+                  System.out.println("나가요옹");
             }finally{
-               System.out.println("유저나가요");
-               System.out.println(userid);
-               System.out.println("finally전 유저데이터 : "+userdata.size());
-               userdata.remove(userid, oos);
-               System.out.println("finall후 유저데이터 : "+userdata.size());
+               userdata.remove(userid);
+               System.out.println(userid + "서버에서죽음");
+              // new LobbyDAO().delete(userid);
+               
+               	 
             }
       }
 
@@ -158,9 +157,17 @@ public class Main_Server {
      public void sendSelect(DDongData dataois)   
         {
         try {
+        		if(dataois.dst == null) {
+        			System.out.println("잘찍니??0------------------------------------------------------------");
+        			return;
+        		}
+        	
+        	   //System.out.println("데이터 잘들어와요 그리고 잘보내져요 \n");
+        		System.out.println(dataois.dst+"보내는 dst");
                userdata.get(dataois.dst).writeObject(dataois);// 여기 에러
                userdata.get(dataois.dst).flush();
                userdata.get(dataois.dst).reset();
+               
          
                //System.out.println("유저한테 데이터가 잘보내져요");
                

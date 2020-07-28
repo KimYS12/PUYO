@@ -1,3 +1,4 @@
+// 200729 수정완료
 package lobby_p;
 
 import java.awt.Font;
@@ -15,153 +16,155 @@ import javax.swing.ScrollPaneConstants;
 
 class User implements Comparable<User>{
 
-	String id;
-	Integer score, rank;
-	
-//	Lobby_Main lobby;
+   String id;
+   Integer score, rank;
 
 
-	public User(String id, Integer score) {
+   public User(String id, Integer score) {
 
-		super();
-		this.id = id;
-		this.score = score;
-		this.rank = rank;
-	}
-
-
-	void rankCalc(TreeSet<User> you){ // 순위 메기는 곳
-
-		rank = 1;
-
-		for (User uR : you) {
-			if(score<uR.score)
-				rank++;
-		}
-		
-		RankDTO dto = new RankDTO();
-		dto.setId(id);
-		dto.setRank(rank);
-		
-		new RankDAO().modifyRank(dto); // 순위메기고 순위값 DB에 저장
-	}
+      super();
+      this.id = id;
+      this.score = score;
+      this.rank = rank;
+   }
 
 
-	@Override
-	public String toString() {
+   void rankCalc(TreeSet<User> you){ // 순위 메기는 곳
 
-		return rank + "," + id + "," + score;
-	}
+      rank = 1;
+
+      for (User uR : you) {
+         if(score<uR.score)
+            rank++;
+      }
+
+      RankDTO dto = new RankDTO();
+      dto.setId(id);
+      dto.setRank(rank);
+
+      new RankDAO().modifyRank(dto); // 순위메기고 순위값 DB에 저장
+   }
 
 
-	@Override
-	public int compareTo(User you) { // 점수 제일 높은 순으로 출력
+   @Override
+   public String toString() {
 
-		int res = you.score - score;
+      return rank + "," + id + "," + score;
+   }
 
-		if(res==0)
-			res = id.compareTo(you.id);
 
-		return res;
-	}
+   @Override
+   public int compareTo(User you) { // 점수 제일 높은 순으로 출력
+
+      int res = you.score - score;
+
+      if(res==0)
+         res = id.compareTo(you.id);
+
+      return res;
+   }
 }
 
 
 
 public class RankMain_GUI extends JPanel {
 
+   Lobby_Main lobby;
 
-	public RankMain_GUI() {
 
-		setBounds(0,0, 636,902);
-		setLayout(null);
+   public RankMain_GUI() {
 
-		// == DB에서 점수를 가져와 순위를 메긴다 ========
-		String id;
-		Integer score;
+      setBounds(0,0, 636,902);
+      setLayout(null);
 
-		TreeSet<User> userInfo = new TreeSet<User>(); // 유저들의 정보를 담을 treeset, 유저들 점수비교해서 랭킹 
+      // == DB에서 점수를 가져와 순위를 메긴다 ========
+      String id;
+      Integer score;
 
-		RankDTO dto = new RankDTO();
-		RankDAO dao = new RankDAO();
+      TreeSet<User> userInfo = new TreeSet<User>(); // 유저들의 정보를 담을 treeset, 유저들 점수비교해서 랭킹 
 
-		for (RankDTO info : new RankDAO().list()) { // DB에 있는 정보를 순위비교를 위해 TreeSet에 저장
+      RankDTO dto = new RankDTO();
+      RankDAO dao = new RankDAO();
 
-			id = info.getId();
-			score = info.getScore();
+      for (RankDTO info : new RankDAO().list()) { // DB에 있는 정보를 순위비교를 위해 TreeSet에 저장
 
-			userInfo.add(new User(id, score));
-		}
+         id = info.getId();
+         score = info.getScore();
 
-		
-		int cnt = 0; // 테이블에 들어갈 내용 배열 줄수 체크를 위해 생성
-		
-		Object [] index = {"RANK", "ID", "SCORE"}; // 랭킹테이블 컬럼
-		Object [][] userL = new Object[userInfo.size()][3]; // 유저의 랭킹, 점수를 랭킹순으로 담을 배열
-		Object [][] myRankL = new Object[1][1];
+         userInfo.add(new User(id, score));
+      }
 
-		for (User chk : userInfo) { // 순위를 메기고 순위 순서대로 출력 후 배열에 담아준다
 
-			chk.rankCalc(userInfo); // 랭킹 계산 후 순서대로 담아 준다
+      int cnt = 0; // 테이블에 들어갈 내용 배열 줄수 체크를 위해 생성
 
-			userL[cnt][0] = chk.rank;
-			userL[cnt][1] = chk.id;
-			userL[cnt][2] = chk.score;
-			
-			
-//			if() {
-//				
-//				
-//			}
-				
-			cnt++;
-		}
+      Object [] index = {"RANK", "ID", "SCORE"}; // 랭킹테이블 컬럼
+      Object [][] userL = new Object[userInfo.size()][3]; // 유저의 랭킹, 점수를 랭킹순으로 담을 배열
+      Object [][] myRankL = new Object[1][1];
 
-		
-		// 얘는 나중에 맨위에 내순위보이게 할때 쓰고싶어서 빼놨어 아직 미완
-		
-//		JLabel myRank = new JLabel("내순위");
-//		myRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
-//		myRank.setBounds(30, 30, 110, 50);
-//		add(myRank);
-//		
-//		JTable myRankT = new JTable(myRankL, index);
-//		myRankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 15));
-//		JScrollPane sp1 = new JScrollPane();
-//		sp1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//		sp1.setBounds(30, 90, 450, 50);
-//		add(sp1);
-		
-		JLabel totRank = new JLabel("전체순위");
-		totRank.setBounds(30, 100, 110, 50);
-		totRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
-		add(totRank);
-		
-		JTable rankT = new JTable(userL, index);
-		rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
-		rankT.setEnabled(false);
-		JScrollPane sp2 = new JScrollPane(rankT);
-		sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		sp2.setBounds(30, 160, 450, 450);
-		add(sp2);
+      for (User chk : userInfo) { // 순위를 메기고 순위 순서대로 출력 후 배열에 담아준다
 
-//		JLabel totRank = new JLabel("전체순위");
-//		totRank.setBounds(30, 100, 110, 50);
-//		totRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
-//		add(totRank);
-//		
-//		JTable rankT = new JTable(userL, index);
-//		rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
-//		rankT.setEnabled(false);
-//		JScrollPane sp2 = new JScrollPane(rankT);
-//		sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//		sp2.setBounds(30, 160, 450, 450);
-//		add(sp2);
-		
-	}
+         chk.rankCalc(userInfo); // 랭킹 계산 후 순서대로 담아 준다
 
-	public static void main(String[] args) {
+         userL[cnt][0] = chk.rank;
+         userL[cnt][1] = chk.id;
+         userL[cnt][2] = chk.score;
 
-		new RankMain_GUI();
-	}
+
+//         if(chk.id.equals(lobby.cn.id)) {
+//            
+//            myRankL[0][0] =  chk.rank;
+//            myRankL[0][1] =  chk.id;
+//            myRankL[0][2] = chk.score;
+//         }
+
+         cnt++;
+      }
+
+
+      // 얘는 나중에 맨위에 내순위보이게 할때 쓰고싶어서 빼놨어 아직 미완
+
+//      JLabel myRank = new JLabel("내순위");
+//      myRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
+//      myRank.setBounds(30, 30, 110, 50);
+//      add(myRank);
+//
+//      JTable myRankT = new JTable(myRankL, index);
+//      myRankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 15));
+//      JScrollPane sp1 = new JScrollPane();
+//      sp1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//      sp1.setBounds(30, 90, 450, 50);
+//      add(sp1);
+
+      JLabel totRank = new JLabel("전체순위");
+      totRank.setBounds(29, 20, 110, 30);
+      totRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
+      add(totRank);
+
+      JTable rankT = new JTable(userL, index);
+      rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
+      rankT.setEnabled(false);
+      JScrollPane sp2 = new JScrollPane(rankT);
+      sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+      sp2.setBounds(29, 60, 450, 450);
+      add(sp2);
+
+      //      JLabel totRank = new JLabel("전체순위");
+      //      totRank.setBounds(30, 100, 110, 50);
+      //      totRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
+      //      add(totRank);
+      //      
+      //      JTable rankT = new JTable(userL, index);
+      //      rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
+      //      rankT.setEnabled(false);
+      //      JScrollPane sp2 = new JScrollPane(rankT);
+      //      sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+      //      sp2.setBounds(30, 160, 450, 450);
+      //      add(sp2);
+
+   }
+
+   public static void main(String[] args) {
+
+      new RankMain_GUI();
+   }
 }

@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.xml.crypto.Data;
 
 import jdbc_p.RankDAO;
 import jdbc_p.RankDTO;
@@ -115,7 +116,10 @@ public class MePuyoPanel extends JPanel {
 					if (meInfo.endGame) { // end 게임끝을 chk
 						System.out.println("게임종료");
 						// 싱글모드 : // JOptionPane.showMessageDialog(MePuyoPanel.this, "게임 종료!");
+
 						updateRank(); // 점수 업데이트
+//                  frame.data.chk = true;
+						frame.cn.send(frame.data);
 
 						if (threadPool != null && !threadPool.isShutdown()) { // 게임이 끝나고 쓰레드 풀이 열려 있다면
 							threadPool.shutdown(); // 게임이 끝났으므로 모든 쓰레드를 죽임.
@@ -405,16 +409,16 @@ public class MePuyoPanel extends JPanel {
 			int y = puyo.getY();
 
 			for (MyLabel pu : colors) {
-				
+
 				modifyNode();
 
 				// 1안 - 버그 있음
-//				if (x == pu.getX() && y == pu.getY() + Puyo.PUYOSIZE
-//						|| x == pu.getX() && y == pu.getY() - Puyo.PUYOSIZE)
-//					equalsTemp.add(pu);
-//				if (y == pu.getY() && x == pu.getX() + Puyo.PUYOSIZE
-//						|| y == pu.getY() && x == pu.getX() - Puyo.PUYOSIZE)
-//					equalsTemp.add(pu);
+//            if (x == pu.getX() && y == pu.getY() + Puyo.PUYOSIZE
+//                  || x == pu.getX() && y == pu.getY() - Puyo.PUYOSIZE)
+//               equalsTemp.add(pu);
+//            if (y == pu.getY() && x == pu.getX() + Puyo.PUYOSIZE
+//                  || y == pu.getY() && x == pu.getX() - Puyo.PUYOSIZE)
+//               equalsTemp.add(pu);
 
 				// 2안 실험 해봐야함
 				if (x == pu.getX() && y == pu.getY() + Puyo.PUYOSIZE)
@@ -433,8 +437,8 @@ public class MePuyoPanel extends JPanel {
 				equals = equalsTemp;
 			}
 
-//			if (equalsTemp.size() == 3)
-//				break;
+//         if (equalsTemp.size() == 3)
+//            break;
 
 			System.out.println("** equalsTemp: " + equalsTemp);
 			System.out.println("** equalsTemp: " + equalsTemp.size());
@@ -476,17 +480,17 @@ public class MePuyoPanel extends JPanel {
 			int y = puyo.getY();
 
 			for (MyLabel pu : removeColor) {
-				
+
 				modifyNode();
 
 				// 1안 - 기존 로직
 				// --------------------------------------------------------------
-//				if (x == pu.getX() && y == pu.getY() + Puyo.PUYOSIZE
-//						|| x == pu.getX() && y == pu.getY() - Puyo.PUYOSIZE)
-//					result.add(pu);
-//				if (y == pu.getY() && x == pu.getX() + Puyo.PUYOSIZE
-//						|| y == pu.getY() && x == pu.getX() - Puyo.PUYOSIZE)
-//					result.add(pu);
+//            if (x == pu.getX() && y == pu.getY() + Puyo.PUYOSIZE
+//                  || x == pu.getX() && y == pu.getY() - Puyo.PUYOSIZE)
+//               result.add(pu);
+//            if (y == pu.getY() && x == pu.getX() + Puyo.PUYOSIZE
+//                  || y == pu.getY() && x == pu.getX() - Puyo.PUYOSIZE)
+//               result.add(pu);
 				// --------------------------------------------------------------
 
 				// 2안 - 기존 로직을 갈라 놓음
@@ -610,8 +614,8 @@ public class MePuyoPanel extends JPanel {
 		// 있다면 아래와 같이 진행
 
 		// 자리한번 옴겨 볼께요
-//		this.bombArr = new HashSet<MyLabel>(); // 터질 목록은 이제 필요 없으므로 초기화
-//		this.bombArrColor = new HashSet<String>();
+//      this.bombArr = new HashSet<MyLabel>(); // 터질 목록은 이제 필요 없으므로 초기화
+//      this.bombArrColor = new HashSet<String>();
 
 		emptyEndMove(updatePuyo); // 요소들이 터져서 이동이 끝난뒤
 		modifyNode();
