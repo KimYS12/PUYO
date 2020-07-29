@@ -38,13 +38,13 @@ public class JoinTest extends JFrame {
          "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", // ¿µ¹®¼ýÀÚÆ¯¼ö¹®ÀÚ Æ÷ÇÔ 8ÀÚ ÀÌ»ó
          "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", // ¿µ¹®¼ýÀÚÆ¯¼ö¹®ÀÚ Æ÷ÇÔ 8ÀÚ ÀÌ»ó
          "^[°¡-ÆR]{2,4}$", // ÀÌ¸§ÇÑ±Û 2~4ÀÚ
-         "^[0-9_]{1,6}$", // 
+         "^[0-9_]{6,6}$", // »ý³â¿ùÀÏ 6±ÛÀÚ
          "^[0-9a-zA-Z_]{2,}@[a-zA-Z]{2,}.(([a-zA-Z]{2,})|([a-zA-Z]{2,}.[a-zA-Z]{2,}))" // ÀÌ¸ÞÀÏ À¯È¿¼º °Ë»ç
    };
 
    public String id;         // id ´ã¾ÆµÑ °ø°£
    public String pw;         // pw ´ã¾ÆµÑ °ø°£
-   public String pw2;         // pwÈ®ÀÎ¶õ 
+   public String pw2;        // pwÈ®ÀÎ¶õ 
    public String name;      // ÀÌ¸§
    public String email;      // ¸ÞÀÏ
    public String birth;      // »ýÀÏ
@@ -55,7 +55,6 @@ public class JoinTest extends JFrame {
    JTextField JoinBirthText;
    JTextField JoinNameText;
    JTextField JoinEmailText;
-   JFrame jf;
 
    JButton btnCancelMake;   //Á¾·á ¹öÆ°
    JButton btnMakeMember;   //È¸¿ø°¡ÀÔ½Ã ¿Ï·á ¹öÆ°
@@ -140,37 +139,38 @@ public class JoinTest extends JFrame {
       btnMakeMember.setBounds(142, 435, 129, 29);
       getContentPane().add(btnMakeMember);
       btnMakeMember.addActionListener(butAct);
+      btnMakeMember.setEnabled(false);
 
       btnIdChk = new JButton("Áßº¹È®ÀÎ");
       btnIdChk.setBackground(Color.LIGHT_GRAY);
       btnIdChk.setBounds(424, 95, 108, 27);
       getContentPane().add(btnIdChk);
       
-      JLabel lblNewLabel = new JLabel("\uC601\uBB38 \uB610\uB294 \uC22B\uC790\uB85C 5\uAE00\uC790 \uC774\uC0C1");
+      JLabel lblNewLabel = new JLabel("¿µ¹® ¶Ç´Â ¼ýÀÚ·Î 5±ÛÀÚ ÀÌ»ó");
       lblNewLabel.setFont(new Font("±¼¸²", Font.PLAIN, 11));
       lblNewLabel.setForeground(Color.BLACK);
       lblNewLabel.setBounds(223, 120, 187, 21);
       getContentPane().add(lblNewLabel);
       
-      JLabel lblNewLabel_1 = new JLabel("\uC601\uBB38,\uC22B\uC790,\uD2B9\uC218\uBB38\uC790 \uC870\uD569 8\uAE00\uC790 \uC774\uC0C1");
+      JLabel lblNewLabel_1 = new JLabel("¿µ¹®,¼ýÀÚ,Æ¯¼ö¹®ÀÚ Á¶ÇÕ 8±ÛÀÚ ÀÌ»ó");
       lblNewLabel_1.setFont(new Font("±¼¸²", Font.PLAIN, 11));
       lblNewLabel_1.setForeground(Color.BLACK);
       lblNewLabel_1.setBounds(223, 170, 187, 21);
       getContentPane().add(lblNewLabel_1);
       
-      JLabel lblNewLabel_3 = new JLabel("2~4\uAE00\uC790");
+      JLabel lblNewLabel_3 = new JLabel("2~4±ÛÀÚ");
       lblNewLabel_3.setFont(new Font("±¼¸²", Font.PLAIN, 11));
       lblNewLabel_3.setForeground(Color.BLACK);
       lblNewLabel_3.setBounds(223, 270, 187, 21);
       getContentPane().add(lblNewLabel_3);
       
-      JLabel lblNewLabel_4 = new JLabel("ex) 901211");
+      JLabel lblNewLabel_4 = new JLabel("»ý³â¿ùÀÏ ex) 901211");
       lblNewLabel_4.setFont(new Font("±¼¸²", Font.PLAIN, 11));
       lblNewLabel_4.setForeground(Color.BLACK);
       lblNewLabel_4.setBounds(223, 320, 187, 21);
       getContentPane().add(lblNewLabel_4);
       
-      JLabel lblNewLabel_5 = new JLabel("ex) \uC544\uC774\uB514@\uB3C4\uBA54\uC778 \uC8FC\uC18C");
+      JLabel lblNewLabel_5 = new JLabel("ex) ¾ÆÀÌµð@µµ¸ÞÀÎ ÁÖ¼Ò");
       lblNewLabel_5.setFont(new Font("±¼¸²", Font.PLAIN, 11));
       lblNewLabel_5.setForeground(Color.BLACK);
       lblNewLabel_5.setBounds(223, 370, 187, 21);
@@ -182,10 +182,6 @@ public class JoinTest extends JFrame {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
    }
-   
-   
-   
-   
 
    ActionListener butAct = new ActionListener() { // ¾×¼Ç¸®½ºÆ®
 
@@ -208,17 +204,19 @@ public class JoinTest extends JFrame {
                   JOptionPane.showMessageDialog(null, JoinIdText.getText() + " Áßº¹ÀÔ´Ï´Ù.");
                }else if(dao.idChk(jt)==1 && Pattern.matches(regex[0], jt)) {
                   JOptionPane.showMessageDialog(null, JoinIdText.getText() + " »ç¿ë°¡´ÉÇÕ´Ï´Ù.");
+                  JoinIdText.setEditable(false);
+                  btnMakeMember.setEnabled(true);
                }
             
          }
 
          if (e.getSource() == btnMakeMember) {   //È¸¿ø °¡ÀÔ 
-            id = JoinIdText.getText();   
-            pw = passwordField.getText();
-            pw2 = passwordField_1.getText();
-            name = JoinNameText.getText();
-            birth = JoinBirthText.getText();
-            email = JoinEmailText.getText();
+            id = JoinIdText.getText().trim();   
+            pw = passwordField.getText().trim();
+            pw2 = passwordField_1.getText().trim();
+            name = JoinNameText.getText().trim();
+            birth = JoinBirthText.getText().trim();
+            email = JoinEmailText.getText().trim();
             
             String[] joinChk = { id, pw, pw2, name, birth, email }; // À¯È¿¼º °Ë»ç¸¦ À§ÇØ ¹è¿­Çü
             String[] pppChk = { "id¸¦ È®ÀÎ ÇØÁÖ¼¼¿ä", "ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä", "ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä", "ÀÌ¸§À» È®ÀÎÇØ ÁÖ¼¼¿ä", "»ýÀÏÀ» È®ÀÎÇØ ÁÖ¼¼¿ä",
@@ -229,8 +227,7 @@ public class JoinTest extends JFrame {
                int j = -1;
                if(true) {
                if (Pattern.matches(regex[i], joinChk[i])) { //ÆÐÅÏÀÌ ÀÏÄ¡ÇÏ¸é data¿¡ ÀúÀå
-//                  data.add(id);
-                  dto.setId(id);
+            	   dto.setId(id);
                } else { //ÀÏÄ¡ ÇÏÁö ¾ÊÀ» ½Ã idÈ®ÀÎ ¸Þ¼¼Áö Ã¢ 
                   JOptionPane.showMessageDialog(null, pppChk[i]);
                   j--;
@@ -247,7 +244,6 @@ public class JoinTest extends JFrame {
                i++;   //id Åë°ú½Ã i¸¦ Áõ°¡½ÃÄÑ ´ÙÀ½ ¹è¿­ ¼ø¼­ ÁøÇà
                if (Pattern.matches(regex[i], joinChk[i])) {
                   if (pw2.equals(pw))
-//                     data.add(pw);
                   dto.setPw(pw);
                } else {
                   JOptionPane.showMessageDialog(null, pppChk[i]);
@@ -255,7 +251,6 @@ public class JoinTest extends JFrame {
                }
                i++;
                if (Pattern.matches(regex[i], joinChk[i])) {
-//                  data.add(name);
                   dto.setName(name);
                } else {
                   JOptionPane.showMessageDialog(null, pppChk[i]);
@@ -264,7 +259,6 @@ public class JoinTest extends JFrame {
                i++;
 
                if (Pattern.matches(regex[i], joinChk[i])) {
-//                  data.add(birth);
                   dto.setBirth(birth);
                } else {
                   JOptionPane.showMessageDialog(null, pppChk[i]);
@@ -273,7 +267,6 @@ public class JoinTest extends JFrame {
                i++;
                
                if (Pattern.matches(regex[i], joinChk[i])) {
-//                  data.add(email);
                   dto.setEmail(email);
                } else {
                   JOptionPane.showMessageDialog(null, pppChk[i]);
@@ -282,8 +275,6 @@ public class JoinTest extends JFrame {
                
                }
 
-               System.out.println(data); //¿Ï·á½Ã µ¥ÀÌÅÍ°ª È®ÀÎ
-               //System.out.println(new GameUserDAO().insert(dto)); //db¿¡  insert 
                new GameUserDAO().insert(dto);
                JOptionPane.showMessageDialog(null, name + "´Ô È¸¿ø°¡ÀÔ ¿Ï·á");
                
@@ -291,7 +282,6 @@ public class JoinTest extends JFrame {
                
                LoginTest lt = new LoginTest();
                dispose();
-            //   lt.setVisible(true);
                break;
 
             }
@@ -301,10 +291,5 @@ public class JoinTest extends JFrame {
       }
    };
 
-
-   public static void main(String[] args) {
-//      new JoinTest();
-
-   }
 }
    

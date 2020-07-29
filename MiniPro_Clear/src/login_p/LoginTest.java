@@ -171,7 +171,6 @@ public class LoginTest extends JFrame implements DDongInter {
 						ddos.type = "로비";
 						cn.send(ddos);
 
-						System.out.print("접속성공");
 						dispose();
 					}
 

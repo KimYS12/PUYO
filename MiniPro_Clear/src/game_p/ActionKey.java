@@ -181,21 +181,20 @@ public class ActionKey implements KeyListener {
 		if (youX == meX) { // me 와 you가 y툭으로 일직선 즉 세로 방향 일때
 
 			if (youY < meY) { // you가 me 보다 위에 존재 할때
-				// you의 x 가 me의 오른쪽으로...
-				// you의 y 가 me와 같음...
 				if (searchRight()) {
 					return;
 				}
+				// you의 x 가 me의 오른쪽으로...
+				// you의 y 가 me와 같음...
 				youX = meX + Puyo.PUYOSIZE;
 				youY = meY;
 
 			} else { // you가 me 보다 아래 존재 할때
-				// you의 x 가 me의 왼쪽으로...
-				// you의 y 가 me와 같음...
-
 				if (searchLeft()) {
 					return;
 				}
+				// you의 x 가 me의 왼쪽으로...
+				// you의 y 가 me와 같음...
 				youX = meX - Puyo.PUYOSIZE;
 				youY = meY;
 
@@ -206,8 +205,10 @@ public class ActionKey implements KeyListener {
 
 			// me의 밑에 무엇인가 존재 하면 회전 못시키게 만들면 되겟네...
 			for (MyLabel puyo : panel.puyoLbs) {
-				if (meX == puyo.getX() && meY + (Puyo.PUYOSIZE * 2) == puyo.getY())
+				if (meX == puyo.getX() && meY + (Puyo.PUYOSIZE * 2) == puyo.getY()) {
+					System.out.println("여기가 언제 진입함 ?????????????");
 					return;
+				}
 			}
 
 			if (youX < meX) { // you가 me 의 왼쪽에 존재 할때

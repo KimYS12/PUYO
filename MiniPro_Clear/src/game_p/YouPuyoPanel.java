@@ -44,7 +44,7 @@ public class YouPuyoPanel extends JPanel {
 
 	void paint(MeGameInfo info) {
 
-		System.out.println("paint 진입"); // 진입 확인
+		// System.out.println("paint 진입"); // 진입 확인
 
 		if (info != null) {
 

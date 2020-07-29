@@ -25,13 +25,13 @@ public class FinddingId extends JFrame{
 
 
 
-	//LoginTest jt = new LoginTest();
 	JTextField nameText;
 	JTextField idText;
 	JTextField birthText;
 	JTextField emailText;
 	JButton closeBtn;
 	JButton findBtn;
+	
 	public FinddingId() {
 		getContentPane().setLayout(null);
 		setTitle("계정 찾기");
@@ -141,7 +141,6 @@ public class FinddingId extends JFrame{
 						pwF.clear();
 					}
 
-					System.out.println(pwF);
 					break;
 
 				}

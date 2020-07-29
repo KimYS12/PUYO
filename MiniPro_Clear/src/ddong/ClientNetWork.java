@@ -54,7 +54,6 @@ public class ClientNetWork {
          oos.flush();
          oos.reset();
 
-        // System.out.println("Àü¼ÛÀßµÅ¿ä");
 
       } catch (Exception e) {
       }
@@ -67,7 +66,6 @@ public class ClientNetWork {
          try {
             ois = new ObjectInputStream(soc.getInputStream());
          } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
          }
       }
@@ -82,7 +80,6 @@ public class ClientNetWork {
                ddInter.reciver(data);
 
             } catch (Exception e) {
-               // TODO Auto-generated catch block
                e.printStackTrace();
             }
          }

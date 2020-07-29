@@ -109,31 +109,9 @@ public class RankMain_GUI extends JPanel {
          userL[cnt][1] = chk.id;
          userL[cnt][2] = chk.score;
 
-
-//         if(chk.id.equals(lobby.cn.id)) {
-//            
-//            myRankL[0][0] =  chk.rank;
-//            myRankL[0][1] =  chk.id;
-//            myRankL[0][2] = chk.score;
-//         }
-
          cnt++;
       }
 
-
-      // 얘는 나중에 맨위에 내순위보이게 할때 쓰고싶어서 빼놨어 아직 미완
-
-//      JLabel myRank = new JLabel("내순위");
-//      myRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
-//      myRank.setBounds(30, 30, 110, 50);
-//      add(myRank);
-//
-//      JTable myRankT = new JTable(myRankL, index);
-//      myRankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 15));
-//      JScrollPane sp1 = new JScrollPane();
-//      sp1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//      sp1.setBounds(30, 90, 450, 50);
-//      add(sp1);
 
       JLabel totRank = new JLabel("전체순위");
       totRank.setBounds(29, 20, 110, 30);
@@ -147,19 +125,6 @@ public class RankMain_GUI extends JPanel {
       sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
       sp2.setBounds(29, 60, 450, 450);
       add(sp2);
-
-      //      JLabel totRank = new JLabel("전체순위");
-      //      totRank.setBounds(30, 100, 110, 50);
-      //      totRank.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 25));
-      //      add(totRank);
-      //      
-      //      JTable rankT = new JTable(userL, index);
-      //      rankT.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 13));
-      //      rankT.setEnabled(false);
-      //      JScrollPane sp2 = new JScrollPane(rankT);
-      //      sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-      //      sp2.setBounds(30, 160, 450, 450);
-      //      add(sp2);
 
    }
 

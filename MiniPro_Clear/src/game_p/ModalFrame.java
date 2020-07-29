@@ -14,12 +14,10 @@ import javax.swing.JLabel;
 import ddong.ClientNetWork;
 import ddong.DDongData;
 import ddong.DDongInter;
-import jdbc_p.GameRoomDAO;
-import jdbc_p.GameRoomDTO;
 import jdbc_p.LobbyDAO;
 import lobby_p.Lobby_Main;
 
-public class ModalFrame extends JFrame implements DDongInter, WindowListener {
+public class ModalFrame extends JFrame implements WindowListener {
 
 	ClientNetWork cn;
 
@@ -52,8 +50,8 @@ public class ModalFrame extends JFrame implements DDongInter, WindowListener {
 		textLb2.setHorizontalAlignment(JLabel.CENTER);
 		add(textLb2);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 닫기 옵션
-		// setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // 프레임 닫기 비활성화
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 닫기 옵션
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // 프레임 닫기 비활성화
 		setVisible(true); // 프레임을 보여줌
 
 		addWindowListener(this); // 윈도우창을 x로 닫으면 닫히게 한다
@@ -100,26 +98,20 @@ public class ModalFrame extends JFrame implements DDongInter, WindowListener {
 	void goLobby() {
 
 		ModalFrame.this.dispose();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 이게 먹히나 ?
+		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 이게 먹히나 ?
 		ModalFrame.this.frame.dispose();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		new LobbyDAO().insert(frame.meId);
 
 		frame.updateRoomDb();
 
-		new Lobby_Main(cn);
+		new Lobby_Main(frame.cn);
 
 		DDongData data = new DDongData();
 		data.type = "로비";
 		data.data = null;
-		cn.send(data);
-
-	}
-
-	@Override
-	public void reciver(DDongData dd) {
-		// TODO Auto-generated method stub
+		frame.cn.send(data);
 
 	}
 
@@ -133,6 +125,7 @@ public class ModalFrame extends JFrame implements DDongInter, WindowListener {
 	public void windowClosing(WindowEvent e) { // 강제 종료시.....
 		// TODO Auto-generated method stub
 		frame.updateRoomDb();
+
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package jdbc_p;
 
 public class LobbyDTO {
-	
+
 	String id;
 
 	public String getId() {
@@ -11,6 +11,5 @@ public class LobbyDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 
 }
